@@ -1,14 +1,14 @@
 "use client"
-import {useSession, signOut} from 'next-auth/react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { useRouter } from 'next/navigation';
+import { useRouter} from 'next/navigation';
 import Link from 'next/link';
 function NavScroll() {
   const router = useRouter();
-  const {data} =useSession();
+
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -16,12 +16,7 @@ function NavScroll() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-          {data ? 
-
-<div onClick={() => {signOut()}}> Logout </div>
-     
-: <div onClick={() => router.push('/auth/login')}> LogIn </div>
-}
+         
           <Nav.Link as={Link} href="/">
             Home
             </Nav.Link>

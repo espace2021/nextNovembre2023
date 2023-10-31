@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Article=require("../models/article")
-const {verifyToken} = require('../middleware/verif-token')
+//const {verifyToken} = require('../middleware/verif-token')
 
 // chercher un article par s/cat
 router.get('/scat/:scategorieID',async(req, res)=>{
@@ -16,7 +16,7 @@ router.get('/scat/:scategorieID',async(req, res)=>{
 
 // afficher la liste des articles.
 
-router.get('/',verifyToken,async (req, res )=> {
+router.get('/',async (req, res )=> {
     try {
       const articles = await Article.find({}, null, {sort: {'_id': -1}}).populate("scategorieID").exec();
 
