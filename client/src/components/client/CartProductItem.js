@@ -5,9 +5,11 @@ import React,{ useState } from "react";
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 
+import { useShoppingCart } from "use-shopping-cart" ;
 
 const CartProductItem= ({product})=> {
    
+  const { addItem  } = useShoppingCart();
 
   const { data: session } = useSession({
     required: true,
@@ -15,12 +17,7 @@ const CartProductItem= ({product})=> {
     redirect('/signin?callbackUrl=/client/cartProducts')
     }
   })
-  console.log(useSession({
-    required: true,
-    onUnauthenticated() {
-    redirect('/signin?callbackUrl=/client/cartProducts')
-    }
-  }))
+ 
 
     const [quantity, setQuantity] = useState(1);
 
@@ -34,6 +31,23 @@ const CartProductItem= ({product})=> {
       setQuantity(quantity + 1);
     };
 
+    const addToCart = () => {
+      
+      const target = { 
+        id:product._id,
+      title:  product.designation,
+      image: product.imageart,
+      price : product.prix,
+      quantity : quantity,
+      count:quantity
+      };
+            addItem(target);
+      console.log('Item added to cart:', target);
+     
+       // We are adding this line, which resets the quantity back to 1
+      setQuantity(1);
+    };
+    
     return ( 
 
 <article className="col-sm-3">
@@ -64,7 +78,7 @@ const CartProductItem= ({product})=> {
   </div>
   </div>
   <div className="text-center">
-  <button className="btn btn-warning">
+  <button className="btn btn-warning" onClick={() => addToCart()}>
     Add to cart
   </button>
   </div>
