@@ -17,14 +17,17 @@ export default function RootLayout({ children }) {
   return (
   
     <html lang="en">
-       
+ 
       <body className={inter.className}>
-     
+      <CartProvider
+    // Enables local storage
+    shouldPersist={true}
+  >
    
        {children}
-       
+       </CartProvider>      
         </body>
-   
+  
     </html>
     
   )

@@ -4,12 +4,11 @@ import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import {useSession, signOut} from 'next-auth/react';
 import Image from "next/image";
 
-import ShoppingCart from "./ShoppingCart";
 import { useShoppingCart } from "use-shopping-cart" ;
 
 const NavBar = () => {
 
-    const { clearCart,cartCount,handleCartClick} = useShoppingCart();
+    const {cartCount} = useShoppingCart();
 
     const {data} =useSession();
 return (
@@ -26,7 +25,8 @@ return (
       
       <button className="btn btn-default"  onClick={() => {signOut();}}>Logout </button>
     
-      <button className="btn btn-default" onClick={() => handleCartClick()}>
+      <button className="btn btn-default" >
+     <Link href={"/client/cart"}>
                 <Image
                   src="/images/cart.png"
                   width={40}
@@ -34,12 +34,9 @@ return (
                   alt="shopping cart icon"
                 />
                  <span className="badge bg-primary">{cartCount}</span>
-                
+     </Link>          
         </button>
-        <span onClick={()=>clearCart()}>clearCart</span>
-        
-        <ShoppingCart />
-
+  
     
               </>
               ):  null
